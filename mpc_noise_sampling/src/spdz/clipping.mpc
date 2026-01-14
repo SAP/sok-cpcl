@@ -1,0 +1,31 @@
+import Compiler.mpc_math as mpc
+from util import if_else
+
+# Clipping Implementation
+
+C = 1.0
+grad = Array(3,sfix)
+@for_range_opt(3)
+def _(i):
+    grad[i] = sfix.get_input_from(0)
+
+@for_range_opt(3)
+def _(i):
+    print_ln("Grad component %s",grad[i].reveal())
+
+
+grad_pow = Array(3,sfix)
+@for_range_opt(3)
+def _(i):
+    grad_pow[i] = mpc.pow_fx(grad[i], 2)
+
+grad_pow_sum = sum(g_p for g_p in grad_pow)
+inv_grad_mod = mpc.abs_fx(grad_pow_sum)
+clip_factor = inv_grad_mod * C
+clip_grad = Array(3,sfix)
+
+clip_cond = clip_factor < 1
+
+@for_range_opt(3)
+def _(i):
+    clip_grad[i] = if_else(clip_cond, grad[i] * clip_factor, grad[i])

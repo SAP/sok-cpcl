@@ -1,0 +1,68 @@
+import Compiler.mpc_math as mpc
+from math import exp, ceil, sqrt,log
+from util import if_else
+import random
+
+
+
+def geometric(den_geom):
+    # 0 should be excluded
+    u = sfix.get_random(0,1)
+    print_ln("u : %s", u.reveal())
+
+    return mpc.floor_fx((mpc.log_fx(1 - u, exp(1))) * (1/den_geom)) # Removed division, with cleartext mul
+
+
+def d_laplace_approx(den_geom):
+    
+    geo_1 = geometric(den_geom)
+    geo_2 = geometric(den_geom)
+    print_ln("geo1 %s geo2 %s", geo_1.reveal(), geo_2.reveal())
+    return sint(geo_1 - geo_2)
+
+
+def bernoulli(probs):
+    u = sfix.get_random(0,1)
+    return u < probs
+   
+
+
+def d_gauss_approx(scale):
+
+    # Local pre-computations
+    sq_scale = scale **2
+    probs = 1 - exp(-1/scale)
+    den_geom = log(1 - probs)
+
+    res = Array(1,sint)
+    res[0] = sint(0)
+    assigned = Array(1,sint)
+    assigned[0] = sint(0)
+    n_iterations = 10
+
+    z_denom =  cint(2 * sq_scale)
+    @for_range_opt(n_iterations)
+    def _(i):
+        y = d_laplace_approx(den_geom)
+        z_numer = mpc.pow_fx(abs(y) - scale, 2)
+        bern_probs = mpc.pow_fx(exp(1), - (z_numer/z_denom))
+#
+        accept = bernoulli(bern_probs)
+
+        tmp_res = res[0]
+        res[0] = assigned[0] * tmp_res + (1-assigned[0]) * (
+                    accept * y + (1-accept)*(cint(0))
+                )
+#
+        tmp_assigned = assigned[0]
+        assigned[0] = if_else(tmp_assigned, tmp_assigned, accept)
+
+    return res[0]
+    #accept = _sample_bernoulli(bern_probs)
+    ## Keep successful samples and increment counter.
+    #accepted_samples = samples[tf.equal(accept, 1)]
+
+#value = d_gauss_approx(29698)
+value = d_gauss_approx(29)
+
+print_ln("Sampled value n= %s", value.reveal())

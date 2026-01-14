@@ -1,0 +1,4 @@
+import Compiler.mpc_math as mpc
+
+x = sfix(234)
+res = mpc.InvertSqrt(x)

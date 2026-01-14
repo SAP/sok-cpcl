@@ -1,0 +1,6 @@
+import Compiler.mpc_math as mpc
+
+# Example usage of mpc.sin
+
+x = sfix(234)
+res = mpc.sin(x)

@@ -1,0 +1,69 @@
+import Compiler.mpc_math as mpc
+from math import exp
+from util import if_else
+
+
+
+
+
+
+def sample_poisson(lam, n_iterations):
+    lambda_exp = exp(-lam)
+    
+    #print_ln("lambda_exp %s", lambda_exp)
+    #print_ln("lambda_exp %s", sfix(lambda_exp).reveal())
+
+    met = Array(n_iterations, sint)
+    u = Array(n_iterations, sfix)
+    part_prod = Array(n_iterations, sfix)
+
+    poi = sint(-1)
+
+    @for_range_opt(n_iterations)
+    def _(i):
+        u[i] =  sfix.get_random(0, 1)
+
+    part_prod[0] = u[0]
+    met[0] = part_prod[0] > lambda_exp
+
+    @for_range_opt(n_iterations-1)
+    def _(i):
+        part_prod[i+1] = part_prod[i] * u[i+1]
+        met[i+1] = part_prod[i+1] > lambda_exp
+        #print_ln("%s  %s",part_prod[i+1].reveal(), met[i+1].reveal())
+
+    poi = sum( v for v in met)
+    return poi
+
+#lam = 1946294362
+#lam = 30854
+n_iterations = 30
+lam = 20
+
+n_sampling = 60
+
+skellam = Array(n_sampling, sint)
+poi_1 = Array(n_sampling,sint)
+poi_2 = Array(n_sampling,sint)
+
+
+#@for_range_opt_multithread(3,n_sampling)
+@for_range_multithread(4, 10, n_sampling)
+def _(i):
+    print_ln("First cycle iteration: %s",i)
+    poi_1[i] = sample_poisson(lam/2, n_iterations)
+
+#@for_range_opt_multithread(3,n_sampling)
+@for_range_multithread(4, 10, n_sampling)
+def _(i):
+    print_ln("Second cycle iteration: %s",i)
+    poi_2[i] = sample_poisson(lam/2, n_iterations)
+
+@for_range_multithread(4, 10, n_sampling)
+def _(i):
+    print_ln("Grouping cycle iteration: %s",i)
+    skellam[i] = poi_1[i] - poi_2[i]
+    #print_ln("Skellam intermediate, value : %s", skellam[i].reveal())
+
+sk = sum(s for s in skellam)
+print_ln("Sampled value : %s", sk.reveal())

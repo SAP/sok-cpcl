@@ -1,0 +1,361 @@
+import Compiler.mpc_math as mpc
+from math import exp, ceil, sqrt
+from util import if_else
+import fractions
+#from sqrt_exact import floorsqrt
+import random
+
+
+def prng(a):
+    # TODO solve PRNG issue
+    #return sint.get_random() #a)
+   
+    u = (sfix.get_random(0,1))
+    return sint(u*a)
+
+def bern_em1():
+    # Sample from Bernoulli(exp(-1)).
+    k = Array(1, sint)
+    k[0] = sint(2)
+  
+    res = Array(1, sint)
+    res[0] = sint(-1)
+
+    # Var init
+    rnd = sint(0)
+    cond = sint(0)
+    assigned = sint(0)
+    tmp_res = sint(-1)
+    tmp_k = k[0]
+    #res = sint(-1)
+
+    n_iterations = 10
+    @for_range_opt(n_iterations)
+    def _(i):
+        rnd = prng(k[0])
+        cond = (rnd != 0)
+        # assigned if res is != -1, since res >= 0
+        assigned = (res[0] != -1)
+        tmp_res = res[0]
+        # if not assigned:
+        #   if cond:
+        #       res = k[0]%2
+        #   else
+        #       res = -1
+        res[0] = assigned*(tmp_res) + (1-assigned)*(
+                cond*(k[0]%2) + (1-cond)*(sint(-1))) 
+        # k[0] is always incremented, but only if the result has not been assigned 
+        # and the conditions are met, the res = k[0]%2
+        tmp_k = k[0]
+        k[0] = tmp_k + 1
+    
+    # if returns - 1, then error 
+    return res[0]
+
+def bern_emab1(a, b):
+    # Sample from Bernoulli(exp(-a/b)), assuming 0 <= a <= b.
+    # assert 0 <= a <= b
+    not_assert_cond = ((a < 0) + (a >b)) % 2
+    k = Array(1,sint)
+    k[0] = sint(1)
+
+    res = Array(1,sint)
+    res[0] = sint(-1)
+
+    # Var init
+    rnd = sint(0)
+    cond = sint(0)
+    assigned = sint(0)
+    tmp_res = sint(-1)
+    tmp_k = k[0]
+    
+    n_iterations = 10
+    @for_range_opt(n_iterations)
+    def _(i):
+        rnd_b = prng(b)
+        rnd_k = prng(k[0])
+        cond_a = (rnd_b < a)
+        cond_0 = (rnd_k[0] == 0)
+        cond = cond_a * cond_0  # if randrange(b, rng) < a and randrange(k[0], rng) == 0: k[0] = k[0] + 1; else return k[0]%2
+        assigned = (res[0] != -1)
+        tmp_res = res[0]
+        # if assert:
+        #   if not assigned:
+        #       if not cond:
+        #           res = -1
+        #       else:
+        #           res = k[0]%2
+        #   else:
+        #       res = tmp_res
+        res[0] = (1-not_assert_cond) * (
+                assigned*(tmp_res) + (1-assigned)*(
+                    (1 -cond)*(k[0]%2) + (cond)*(sint(-1))))
+        # k[0] is always incremented, but only if the result has not been assigned and the conditions are met, the res = k[0]%2
+        tmp_k = k[0]
+        k[0] = tmp_k + 1
+    # if returns - 1, then error 
+    return res[0]
+
+def bern_emab(a, b):
+    # Sample from Bernoulli(exp(-a/b)), allowing a > b.
+
+    #while a > b:
+    #  if bern_em1(rng) == 0:
+    #    return 0
+    #  a = a - b
+    #return bern_emab1(a, b, rng)
+    bern_1 = sint(-1)
+    cond_bern_1 = sint(0)
+    bern_2 = sint(-1)
+    ext_cond = sint(0)
+
+    res = Array(1,sint)
+    res[0] = sint(-1)
+
+    assigned = sint(0)
+    a_new = Array(1,sint)
+    a_new[0] = a
+    tmp_a = a
+    tmp_res = sint(-1)
+    n_iterations = 10
+    @for_range_opt(n_iterations)
+    def _(i):
+        ext_cond = (a_new[0] <= b)
+        bern_1 = bern_em1()
+        cond_bern_1 = (bern_1 == 0)
+
+        tmp_a = a_new[0]
+        a_new[0] = tmp_a - b
+
+        bern_2 = bern_emab1(a, b)
+        # assigned if res != -1, since res >= 0
+        assigned = (res[0] != -1)
+        tmp_res = res[0]
+        # if not assigned:
+        #   if ext_cond:
+        #       res = bern_2
+        #   elif cond_bern_1:
+        #       res = 0
+        #   else:
+        #       a = a - b
+        res[0] = assigned * tmp_res + (1 - assigned)*(
+                ext_cond * bern_2 + (1- ext_cond)*(
+                    cond_bern_1 * 0 + (1-cond_bern_1)*(-1)) )
+
+    # if returns - 1, then error 
+    return res[0]
+
+def geometric(t):      
+    u = Array(1,sint)
+    u[0] = sint(-1)
+    tmp_u = sint(-1)
+    res = Array(1,sint)
+    res[0] = sint(-1)
+    
+    tmp_res = sint(-1)
+    assigned = sint(0)
+    bern_1 = sint(-1)
+    cond_bern_1 = sint(0)
+    bern_2 = sint(-1)
+    cond_bern_2 = sint(0)
+    assigned_u = sint(0)
+
+
+
+    n_iterations = 10
+    @for_range_opt(n_iterations)
+    def _(i):
+        u[0] = prng(t)
+        bern_1 = bern_emab1(u[0], t)
+        cond_bern_1 = (bern_1 == 1)
+
+        tmp_res = res[0]
+        # if the result is != -1. then it means that a correct value for u has been sampled, since the geometric > 0
+        assigned = (res[0] != -1)
+
+        assigned_u = Array(1,sint)
+        assigned_u[0] = sint(0)
+        @for_range_opt(n_iterations)
+        def _(j):
+            bern_2 = bern_em1()
+            cond_bern_2 = (bern_2 != 1)
+            tmp_u = u[0]
+
+            # if (cond_bern_1) then
+            #   try to assign u
+            #   if (u already assigned):
+            #       do not update u
+            #   else:
+            #       if (cond_bern_2):
+            #           assign u
+            #       else:
+            #           u += t
+            # This if cascade could have another if on top that check[0]s if res is assigned, but it would be 1 more multiplication
+            u[0] = ((1 - cond_bern_1) * (-1)) + cond_bern_1 * (
+                    assigned_u[0] * (tmp_u) + (1-assigned_u[0])*( 
+                        cond_bern_2 * tmp_u  + (1-cond_bern_2)*(tmp_u + t)))
+            
+            assigned_u[0] = (tmp_u == u[0])
+        # if res not assigned:
+        #   if cond_bern_1:
+        #       res = u
+        #   else:
+        #       res = -1
+        res[0] = assigned * tmp_res + (1-assigned)* (cond_bern_1* u[0]) + (1-cond_bern_1)*(-1)
+
+    # if returns - 1, then error 
+    return res[0]
+
+def d_laplace(t):
+    # assert t > 0
+    assigned = Array(1,sint)
+    assigned[0] = sint(0)
+
+    res = Array(1,sint)
+    res[0] = sint(-1)
+
+    tmp_assigned = sint(0)
+    
+    cond_b = sint(0)
+    u = sint(-1)
+    b = sint(-1)
+    cond_u = sint(0)
+    tmp_res = sint(-1)
+    n_iterations = 10
+    @for_range_opt(n_iterations)
+    def _(i):
+        u = geometric(t)
+        b = prng(cint(2))
+        cond_b = (b==1)
+        cond_u = (u > 0)
+        tmp_res = res[0]
+        # if not assigned:
+        #   if cond_b:
+        #       res = u
+        #   elif cond_u:
+        #       res = -u
+        res[0] = assigned[0] * tmp_res + (1 - assigned[0])*(
+                cond_b * (u) + (1-cond_b) * (
+                    cond_u * (-u) + (1 - cond_u) * (-1)))
+
+        # if not already assigned, then check if one of the two exit conditions are true
+        tmp_assigned = assigned[0]
+        assigned[0] = tmp_assigned * (1-tmp_assigned) * (cond_b + cond_u)
+
+    # if assigned == 0, then error
+    return res[0], assigned[0]
+
+
+
+
+"""
+Clear text function
+"""
+def floorsqrt(x):
+    #Compute floor(sqrt(x)) exactly.
+    assert x >= 0
+    a = 0  # maintain a^2<=x.
+    b = 1  # maintain b^2>x.
+    while b * b <= x:
+      b = 2 * b
+    # Do binary search.
+    while a + 1 < b:
+      c = (a + b) // 2
+      if c * c <= x:
+        a = c
+      else:
+        b = c
+    return a
+
+
+"""
+def dgauss(ss, num, rng):
+    #Sample from discrete Gaussian.
+
+    #Args:
+    #  ss: Variance proxy, squared scale, sigma^2.
+    #  num: The number of samples to generate.
+    #  rng: The random number generator.
+
+    #Returns:
+    #  A list of discrete Gaussian samples.
+    
+    ss = fractions.Fraction(ss)  # cast to rational for exact arithmetic
+    assert ss > 0
+    t = floorsqrt(ss) + 1
+    results = []
+    trials = 0
+    while len(results) < num:
+      trials = trials + 1
+      y = dlap(t, rng)
+      z = (abs(y) - ss / t)**2 / (2 * ss)
+      if bern_emab(z.numerator, z.denominator, rng) == 1:
+        results.append(y)
+    return results, t, trials
+
+  rng = random.Random(seed)
+  return dgauss(scale * scale, num_samples, rng)
+"""
+
+
+def dgauss(ss, f = 16):
+    # TODO: check for error conditions
+    # Sample one discrete gaussian sample
+    res = Array(1,sint)
+    res[0] = sint(0)
+    assigned = Array(1,sint)
+    assigned[0] = sint(0)
+
+    tmp_assigned = sint(0)
+    ss_frac = fractions.Fraction(ss)  # cast to rational for exact arithmetic
+    ss_num = sint(ss_frac.numerator)
+    ss_den = sint(ss_frac.denominator)
+
+    #TODO: solve this issue t = sint(floorsqrt(ss_frac) + 1)
+    t = cint(ceil(sqrt(ss)))
+
+    n_iterations = 10
+    @for_range_opt(n_iterations)
+    def _(i):
+        y, lap_error = d_laplace(t)
+        y_abs = abs(y)
+        print_ln(y_abs)
+        z_num = (ss_den*y_abs*t - ss_num)**2
+        z_den = 2* ss_den*ss_num* (t**2)
+        #z = (mpc.abs(y) - ss / t)**2 / (2*ss)
+        bern = bern_emab(z_num, sint(z_den))
+        cond_bern = (bern == 1)
+        tmp_res = res[0]
+        res[0] = assigned[0] * (tmp_res) + (1-assigned[0])*( (cond_bern) * y + (1-cond_bern)*sint(0))
+
+        tmp_assigned = assigned[0]
+        assigned[0] = tmp_assigned * (1-tmp_assigned) * cond_bern
+    
+    # if assigned == 0, then error
+    return res[0], assigned[0]
+
+
+"""
+ss and t are public parameters, so we can use clear text functions
+"""
+
+# eps = 1
+# C norm = 0.1
+# no subsampling, q =1 
+# delta = 0.0001
+gamma = 6.788700365020962e-10   
+local_stddev = 0.35086187286279397
+
+# eps = 1
+# C norm = 0.1
+# no subsampling, q = 1 
+# delta = 0.0001
+# steps = 
+gamma = 6.539515143548703e-09   
+local_stddev = 3.508618935203723
+s = local_stddev/gamma
+# IBM
+eps=1
+delta=1e-6
+ss = 20.528847449684477
+dgauss(ss)

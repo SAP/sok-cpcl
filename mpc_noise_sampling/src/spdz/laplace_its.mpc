@@ -1,0 +1,21 @@
+import Compiler.mpc_math as mpc
+from math import exp
+from util import if_else
+
+
+
+sfix.set_precision(16, 31)
+
+u = sfix.get_random(0,1)
+const = sfix(-2)
+b = 3
+u_1 = u - 0.5
+cmp =  u_1 > 0
+sgn = if_else(cmp,1,-1)
+
+l_0 =  mpc.log_fx(u_1, exp(1))
+
+l = - b * sgn * l_0
+
+print_ln("Sampled value\t %s", l.reveal())
+

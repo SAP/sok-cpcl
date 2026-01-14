@@ -1,6 +1,6 @@
 [![REUSE status](https://api.reuse.software/badge/github.com/SAP/sok-cpcl)](https://api.reuse.software/info/github.com/SAP/sok-cpcl)
 
-# sok cpcl
+# SoK: Enhancing Cryptographic Collaborative Learning with Differential Privacy
 
 ## About this project
 
