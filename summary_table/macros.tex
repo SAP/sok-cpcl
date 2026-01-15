@@ -1,0 +1,75 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%        Macros      %%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Tabular Cell with newline
+\newcommand{\specialcell}[2][c]{%
+  \begingroup
+  \renewcommand{\arraystretch}{0.75} % For vertical padding
+  \begin{tabular}[#1]{@{}c@{}}#2\end{tabular}
+  \endgroup
+}
+
+
+\newcommand{\enx}[1]{\ensuremath{#1}\xspace}
+\newcommand{\eps}{\ensuremath{\epsilon}\xspace}
+
+
+\newcommand{\epcl}{CPCL\xspace}
+\newcommand{\ol}{OL\xspace}
+\newcommand{\fl}{FL\xspace}
+
+
+\newcommand{\Xmark}{{$\textcolor{red}{\mathbf{\times}}$}}
+\newcommand{\Xmarktab}{\raisebox{-0.2ex}{\footnotesize$\textcolor{red}{\mathbf{\times}}$\normalsize}}
+
+\newcommand{\doubledash}{{\normalsize$\mathbf{\textcolor{orange}{\--}}$\normalsize}}
+\newcommand{\doubledashtab}{\raisebox{-0.3ex}{\normalsize$\mathbf{\textcolor{orange}{\--}}$\normalsize}}
+\newcommand{\tickmarkertab}{\raisebox{-0.2ex}{\footnotesize$\mathbf{\textcolor{cyan!60!black}{\checkmark}}$\normalsize}}
+\newcommand{\tickmarker}{{\normalsize$\mathbf{\textcolor{cyan!60!black}{\checkmark}}$\normalsize}}
+
+% Enhance marks
+\newcommand{\enhancemark}{{\normalsize$\textcolor{cyan!30!yellow}{\mathbf{\circledast}}$\normalsize}}
+\newcommand{\enhancemarktab}{\raisebox{-0.2ex}{\normalsize$\textcolor{cyan!30!yellow}{\mathbf{\circledast}}$\normalsize}}
+
+\newcommand{\perturbinput}{\enx{\mathsf{\textcolor{blue}{PerturbInput}}}}
+\newcommand{\perturbloss}{\enx{\mathsf{\textcolor{red}{PerturbLoss}}}}
+\newcommand{\perturbgrad}{\enx{\mathsf{\textcolor{green!60!black}{PerturbGradient}}}}
+% before used textt for macros
+\newcommand{\perturbout}{\enx{\mathsf{\textcolor{orange}{PerturbOutput}}}}
+\newcommand{\perturblabel}{\enx{\mathsf{\textcolor{violet}{PerturbLabel}}}}
+
+\newcommand{\pgrad}{\enx{\mathsf{\textcolor{green!60!black}{Grad.}}}}
+\newcommand{\pout}{\enx{\mathsf{\textcolor{orange}{Out.}}}}
+
+% Macros for protocol phases
+
+\newcommand{\phaseformat}[1]{\enx{\mathsf{#1}}}
+\newcommand{\setup}{\phaseformat{Setup}}
+\newcommand{\compgrad}{\phaseformat{GradientCompute}}
+\newcommand{\protection}{\phaseformat{Protect}}
+\newcommand{\reveal}{\phaseformat{Reveal}}
+\newcommand{\perturb}{\phaseformat{Perturb}}
+\newcommand{\perturbbold}{\enx{\bm{\mathsf{Perturb}}}}
+
+\newcommand{\noise}{\perturb}
+\newcommand{\aggr}{\phaseformat{Aggregate}}
+\newcommand{\updatemodel}{\phaseformat{Update}}
+
+%%Noise macros for algorithm
+\newcommand{\partnoise}{\enx{\mathsf{\textcolor{blue!60!black}{{PNoise}}}}}
+\newcommand{\centrnoise}{\enx{\mathsf{\textcolor{blue!60!black}{CNoise}}}}
+
+
+%%% table
+\definecolor{pyblue}{RGB}{ 32,119,180}
+\newcommand{\tabcolor}{pyblue}
+\newcommand{\tabheadform}[1]{{\small\textsf{\color{\tabcolor}#1}}}
+\newcommand{\tableheader}[1]{\tabheadform{\footnotesize#1}} %scshape
+\newcommand{\tablesubheader}[1]{\tabheadform{\scriptsize#1}} %scshape # smaller than normalsize is: \small or 
+\newcommand{\tableemph}[1]{{\small\tabheadform{#1}}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+\newcolumntype{G}[1]{>{\columncolor{\mylighterblue}}C{#1}}
+
+\newcommand{\clset}{\enx{\mathcal{C}}}
+\newcommand{\slset}{\enx{\mathcal{S}}}

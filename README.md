@@ -6,6 +6,12 @@
 
 SoK: Enhancing Cryptographic Collaborative Learning with Differential Privacy
 
+
+Feel free to contribute to our summary table which categorizes and compares different approaches for encrypted and differentially private collaborative learning.
+![Table](summary_table/table.png)
+
+The LaTeX source code for the summary table is in the `summary_table/` folder.
+
 ## Requirements and Setup
 
 *Insert a short description what is required to get your project running...*

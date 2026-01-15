@@ -1,0 +1,133 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts % <--- To use the \thanks command
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Packages for IEEEtran
+\usepackage{cite}
+
+\usepackage{url}
+
+% --- HYPERREF LOADED LAST ---
+% Used to provide hyperlinks in the document
+\usepackage[hidelinks]{hyperref}
+
+% Used to make \enx work and \mathbb
+\usepackage{amssymb}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Custom packages
+\usepackage[utf8]{inputenc}
+\usepackage{xspace}
+
+\usepackage{enumitem}
+
+\setlist[itemize]{noitemsep, topsep=0.2em, left=0.3em}
+
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{marvosym}
+
+\usepackage{amsmath}
+\usepackage{bm}
+
+\usepackage{hhline}
+
+\usepackage[
+  %linesnumbered,
+  %ruled,
+  vlined
+  ]{algorithm2e}
+
+\usepackage{multicol}
+
+\usepackage{colortbl}
+%\usepackage[table]{xcolor}
+%\usepackage{csquotes}
+
+%\usepackage{subfig}
+\usepackage{tikz}
+  \usetikzlibrary{arrows}
+  \usetikzlibrary{calc}
+  \usetikzlibrary{fit}
+  \usetikzlibrary {shapes.symbols}
+
+  \usetikzlibrary{shapes.geometric, arrows.meta, positioning, calc}
+
+\usepackage{array}
+\usepackage{multirow}
+
+\usepackage{soul}
+\usepackage{pgfplotstable}
+\usepackage{tikz-cd}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+
+\usepackage{subcaption}
+
+
+%\usepackage{soulutf8}  % More robust than soul
+%\usepackage{soul}
+%\usepackage[framemethod=tikz]{mdframed}
+%\usepackage[most]{tcolorbox}
+\usepackage{soul}
+\sethlcolor{black!10}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% To append reviews and changes to the paper
+%\usepackage{pdfpages}
+
+\usepackage{changes}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\begin{document}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%        Macros      %%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\input{macros.tex} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{SoK: Enhancing Cryptographic Collaborative Learning with Differential Privacy}
+
+
+\author{\IEEEauthorblockN{Francesco Capano}
+\IEEEauthorblockA{\textit{SAP SE} \\
+Karlsruhe, Germany \\
+francesco.capano@sap.com}
+\and
+\IEEEauthorblockN{Jonas B{\"o}hler}
+\IEEEauthorblockA{\textit{SAP SE} \\
+Karlsruhe, Germany \\
+jonas.boehler@sap.com}
+\and
+\IEEEauthorblockN{Benjamin Weggenmann\textsuperscript{*}\thanks{\textsuperscript{*}Work done while he was at SAP SE.}}
+\IEEEauthorblockA{\textit{Technische Hochschule Würzburg-Schweinfurt} \\
+Würzburg-Schweinfurt, Germany \\
+benjamin.weggenmann@thws.de}
+}
+
+\maketitle
+
+
+
+\input{table.tex}
+
+
+%\bibliographystyle{plainnat}
+\bibliographystyle{IEEEtran}
+\bibliography{bibliography}
+
+
+%\includepdf[pages=-]{submissions/7-satml2026/summary_of_changes.pdf}
+\end{document}
+%\endinput
+%%
+%% End of file `sample-sigconf.tex'.

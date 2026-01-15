@@ -1,0 +1,277 @@
+
+\definecolor{mylightblue} {RGB}{109,196,233}%{67,162,202}
+\def\mylighterblue{ mylightblue!30}
+
+\begin{table*}[!htbp]
+    %\footnotesize
+    \scriptsize
+    \sffamily %sans-serif, makes table stand out
+    \renewcommand{\arraystretch}{0.98} % vertical spacing
+    \setlength{\tabcolsep}{0.1em} % horizontal spacing
+    \centering
+	\caption{
+        {
+            Categorization of {\epcl} \tableemph{Papers} by \tableemph{Learning Paradigm}, DP \tableemph{Noise} and security properties. \tableemph{Perturb}ations are $\mathsf{\textcolor{green!60!black}{Grad(ient)}}$, $\mathsf{\textcolor{orange}{Out(put)}}$.
+            Noise \tableemph{Mechanisms} include Dist(ributed) Lap(lace), Disc(rete) Gauss(ian), Poisson-Bin(omial).
+            %
+            {\tickmarker/\Xmark} denote existing/missing features, {\doubledash} gaps
+            , and
+            {\enhancemark} potential enhancements. 
+            %
+            \tableemph{Privacy Unit} is R(ecord) or U(ser) level. 
+            \tableemph{DP Analysis} includes Mom(ents) Acc(ountant) and C(entral) L(imit) T(heorem) \cite{bu2020deep}.
+            We indicate \tableemph{Malicious} $\mathcal{C}/\mathcal{S}$, and \tableemph{Collusion} thresholds.
+        }
+    }
+    \label{tab:summary}
+    \vspace{0.5em}
+
+    \resizebox{\textwidth}{!}{
+    % Adjusted column structure to fit Noise Sampler under Noise
+    \begin{tabular}{c@{\hskip 0.0ex}c@{\hskip 0.5ex}c@{\hskip 0.5ex}c@{\hskip 0.0ex}c@{\hskip 1.2ex}c@{\hskip 2.7ex}c@{\hskip 0.5ex}c@{\hskip 3.5ex}c@{\hskip 0.0ex}c@{\hskip 0.8ex}c@{\hskip 0.8ex}c@{\hskip 0.0ex}c@{\hskip 0.0ex}c@{\hskip -1.7ex}c@{\hskip 0.0ex}c@{\hskip 0.3ex}c}
+        \multirow{2}{*}[2.1em]{
+		\rotatebox[origin=bc]{65}{\specialcell{\tablesubheader{Learning} \\ \tablesubheader{Paradigm}}}}&
+        \multicolumn{5}{c}{\hspace{-5.5ex} \vspace{-2.4ex} \tableheader{Noise}} &
+        \multicolumn{2}{c}{\hspace{-5.5ex} \specialcell{\tablesubheader{Gradient} \\ \tablesubheader{Secrecy}}}&
+        \multicolumn{2}{c}{\hspace{-2.5ex} \specialcell{\tablesubheader{Model} \\ \tablesubheader{Secrecy}}}&
+        \multirow{2}{*}[3.2ex]{\hspace{0.5ex}\rotatebox[origin=bc]{65}{\specialcell{\tablesubheader{Oblivious} \\ \tablesubheader{Noise}}}}&
+        \multirow{2}{*}[1.2ex]{\rotatebox[origin=bc]{65}{\centering \tablesubheader{Papers}}}&
+		\multirow{2}{*}[1.8ex]{\rotatebox[origin=bc]{65}{\centering \specialcell{\tablesubheader{Privacy} \\ \tablesubheader{Unit}}}}&
+        \multirow{2}{*}[-0.5ex]{\centering \specialcell{\tablesubheader{DP} \\ \tablesubheader{Analysis}}}&
+        \multirow{2}{*}[-0.5ex]{\centering{\specialcell{\tablesubheader{Cryptographic} \\ \tablesubheader{Techniques}}}} &
+		\multirow{2}{*}[2.8ex]{\rotatebox{65}{\tablesubheader{Malicious}}} &
+        \multirow{2}{*}[2.5ex]{\rotatebox{65}{\tablesubheader{Collusion}}}
+        \\  \rule{0pt}{1.6\normalbaselineskip}
+        & % Learning Paradigm
+        \specialcell{\tablesubheader{Type} \\ {\tiny(Alg.~2)}} &
+        \specialcell{\tablesubheader{Sampling} \\ {\tiny(Fig.~3)}} &
+        \specialcell{\tablesubheader{Perturb} \\ {\tiny(Alg.~1)}} &
+        \specialcell{\tablesubheader{Mechanism} \\ {\tiny(Tab.~II)}} &
+		\raisebox{.5em}{\tablesubheader{Sampler}} &
+        {\raisebox{-0.2em}{\footnotesize $\mathcal{C}$}} & % Gradient Privacy clients
+		\raisebox{-0.2em}{\footnotesize $\mathcal{S}$} & % Gradient Privacy servers
+        \raisebox{-0.2em}{\footnotesize $\mathcal{C}$} & % Model Privacy clients
+		\raisebox{-0.2em}{\footnotesize $\mathcal{S}$} & % Model Privacy servers
+        & % Oblivious Noise
+        %& % Number of servers
+        & % Paper
+		& % DP-level
+		& % DP-analysis
+        & % Cryptographic techniques
+		& % Malicious
+		%& % Collusion
+        \\
+        \cline{1-17}
+		\noalign{\vskip 0.08em}
+        
+        % 
+        % --------------------------------------------------------------------------------------------------------
+        \multirow{20}{*}[-0.0ex]{{\textbf{\fl}}} &
+        \multirow{14}{*}[-0.0ex]{{{\partnoise}}} &
+        \multirow{14}{*}[-0.0ex]{{{Local}}} &
+        \multirow{11}{*}[-0.0ex]{{{\pgrad}}} &
+        {Binomial} &
+        {\scriptsize $\mathcal{C}$} & % MOVED SAMPLER HERE
+        \Xmarktab  & % Gradient privacy clients
+        \enhancemarktab & % Gradient privacy servers
+        \Xmarktab  & % Model privacy clients
+        \enhancemarktab & % Model privacy servers
+        \enhancemarktab& % Oblivious noise
+        \cite{agarwal2018cpsgd} & % Paper
+        {U} & % DP-level
+        \enx{(\eps, \delta)} & % DP-analysis
+        Masking  & % Cryptographic techniques
+        \Xmarktab  & % Malicious
+        \Xmarktab  % Collusion
+        \\ 
+        \noalign{\vskip -0.1em}
+        \arrayrulecolor[gray]{0.78}\cline{5-17}
+        \noalign{\vskip 0.08em}        
+        & & & & \multirow{3}{*}{{Disc. Gauss.}} & 
+        {\scriptsize$\mathcal{C}$} & % SAMPLER
+        \Xmarktab  & \enhancemarktab & \Xmarktab  & \enhancemarktab & \enhancemarktab & 
+        \cite{kairouz2021distributed} & {U} & RDP & Masking & \Xmarktab  & \Xmarktab \\ 
+        
+        & & & & & 
+        {\scriptsize$\mathcal{C}$} & % SAMPLER
+        \Xmarktab  & \enhancemarktab & \Xmarktab  & \enhancemarktab & \enhancemarktab & 
+        \cite{wang2020d2p} & {R} & RDP & Masking & \Xmarktab  & \Xmarktab \\ 
+        
+        & & & & & 
+        {\scriptsize$\mathcal{C}$} & % SAMPLER
+        \Xmarktab  & \enhancemarktab & \Xmarktab  & \enhancemarktab & \enhancemarktab & 
+        \cite{stevens2022efficient} & {R} & RDP & LWE & {\scriptsize $\mathcal{C},\mathcal{S}$} & {\scriptsize\enx{n/2}} \\ 
+        
+        \noalign{\vskip -0.1em}
+        \cline{5-17}
+        \noalign{\vskip 0.08em}
+        
+        & & & & \multirow{2}{*}{Skellam} & 
+        {\scriptsize$\mathcal{C}$} & % SAMPLER
+        \Xmarktab  & \enhancemarktab & \Xmarktab  & \enhancemarktab & \enhancemarktab & 
+        \cite{agarwal2021skellam} & {U} & RDP & Masking & \Xmarktab  & \Xmarktab \\ 
+        
+        & & & & & 
+        {\scriptsize$\mathcal{C}$} & % SAMPLER
+        \Xmarktab  & \enhancemarktab & \Xmarktab  & \enhancemarktab & \enhancemarktab & 
+        \cite{bao2022skellam} & {R} & RDP & Masking & \Xmarktab  & \Xmarktab \\ 
+        
+        \noalign{\vskip -0.1em}
+        \cline{5-17}
+        \noalign{\vskip 0.08em}
+        
+        & & & & Poisson-Bin. & 
+        {\scriptsize$\mathcal{C}$} & % SAMPLER
+        \Xmarktab  & \enhancemarktab & \Xmarktab  & \enhancemarktab & \enhancemarktab & 
+        \cite{chen2022poisson} & {U} & RDP & Masking & \Xmarktab  & \Xmarktab \\ 
+        
+        \noalign{\vskip -0.1em}
+        \cline{5-17}
+        \noalign{\vskip 0.08em}
+        
+        & & & & \multirow{5}{*}{Gaussian} & 
+        {\scriptsize $\mathcal{C}$} & % SAMPLER
+        \Xmarktab  & \enhancemarktab & \Xmarktab  & \enhancemarktab & \enhancemarktab & 
+        \cite{truex2019hybrid} & {R} & Mom. Acc. & (A)HE & \Xmarktab  & {\scriptsize\enx{n-1}} \\ 
+        
+        & & & & & 
+        {\scriptsize $\mathcal{C}$} & % SAMPLER
+        \Xmarktab  & \tickmarkertab & \Xmarktab  & \tickmarkertab & \enhancemarktab & 
+        \cite{sebert2023combining} & {U} & Mom. Acc. & (F)HE & \Xmarktab  & {\scriptsize\enx{n-1}} \\ 
+        
+        & & & & & 
+        {\scriptsize $\mathcal{C}$} & % SAMPLER
+        \Xmarktab  & \enhancemarktab & \Xmarktab  & \enhancemarktab & \enhancemarktab & 
+        \cite{lyu2020lightweight} & {R} & RDP & (A)HE & \Xmarktab  & {\scriptsize \enx{n-1}} \\ 
+        
+        & & & & & 
+        {\scriptsize $\mathcal{S}$} & % SAMPLER
+        \Xmarktab  & \enhancemarktab & \Xmarktab  & \enhancemarktab & \enhancemarktab & 
+        \cite{gu2021precad} & {R} & CLT & SS & {\scriptsize $\mathcal{C}$} & {\scriptsize \enx{n/2,m-1}} \\ 
+        
+        & & & & & 
+        {\scriptsize $\mathcal{C}$} & % SAMPLER
+        \Xmarktab  & \enhancemarktab & \Xmarktab  & \enhancemarktab & \enhancemarktab & 
+        \cite{allouah2025towards} & {U} & {RDP} & Masking & \clset, \slset  & {\scriptsize \enx{n-1}} \\ 
+        
+        \noalign{\vskip -0.1em}
+        \cline{4-17}
+        \noalign{\vskip 0.08em}
+        
+        & & & \multirow{3}{*}{{{\pout}}} & \multirow{3}{*}{{{Dist. Lap.}}} & 
+        {\scriptsize$\mathcal{C}$} & % SAMPLER
+        \tickmarkertab & \tickmarkertab & \Xmarktab  & \enhancemarktab & \tickmarkertab & 
+        \cite{mugunthan2019smpai} & {R} & \enx{\eps} & Masking & \Xmarktab  & {\scriptsize\enx{n-1}} \\  
+        
+        & & & & & 
+        {\scriptsize$\mathcal{C}$} & % SAMPLER
+        \tickmarkertab & \tickmarkertab & \Xmarktab  & \enhancemarktab & \tickmarkertab & 
+        \cite{byrd2022collusion} & {R} & \enx{\eps} & A(HE) & \Xmarktab  & {\scriptsize\enx{n-1}} \\
+        
+        & & & & & 
+        {\scriptsize$\mathcal{C}$} & % SAMPLER
+        \tickmarkertab & \tickmarkertab & \Xmarktab  & \enhancemarktab & \tickmarkertab & 
+        \cite{bindschaedler17star} & {R} & \enx{\eps} & A(HE) & {\scriptsize$\mathcal{S}$} & {\scriptsize\enx{n-1}} \\
+        
+        \noalign{\vskip -0.1em}
+        \arrayrulecolor{black}\hhline{~|*{16}{-}}
+        \noalign{\vskip 0.08em}
+        
+        & \multirow{6}{*}[-0.0ex]{{{\centrnoise}}} & \cellcolor{\mylighterblue} & \multirow{3}{*}{\pgrad} & \multirow{3}{*}{Gaussian} & 
+        {\scriptsize$\mathcal{S}$} & % SAMPLER
+        \Xmarktab  & \enhancemarktab & \Xmarktab  & \enhancemarktab & \tickmarkertab & 
+        \cite{chase2017} & {R} & Mom. Acc. & SS + GC & \Xmarktab  & \Xmarktab \\ 
+        
+        & & \cellcolor{\mylighterblue} & & & 
+        {\scriptsize$\mathcal{S}$} & % SAMPLER
+        \Xmarktab  & \enhancemarktab & \Xmarktab  & \enhancemarktab & \tickmarkertab & 
+        \cite{jayaraman2018distributed} & {R} & zCDP & SS + GC & {\scriptsize$\mathcal{S}$} & \Xmarktab \\
+        
+        & & \cellcolor{\mylighterblue} & & & 
+        {\scriptsize$\mathcal{S}$} & % SAMPLER
+        \Xmarktab  & \enhancemarktab & \Xmarktab  & \enhancemarktab & \tickmarkertab & 
+        \cite{iwahana2022spgc} & {R} & \enx{(\eps, \delta)} & SS + GC & \Xmarktab  & \Xmarktab \\
+        
+        \noalign{\vskip -0.1em}
+        \arrayrulecolor[gray]{0.78}\cline{4-17}
+        \noalign{\vskip 0.08em}
+        
+        & & \multirow{-4}{*}[-0.0ex]{\cellcolor{\mylighterblue}Distributed} & \pout & Laplace & 
+        {\scriptsize$\mathcal{S}$} & % SAMPLER
+        \tickmarkertab & \tickmarkertab & \Xmarktab  & \enhancemarktab & \tickmarkertab & 
+        \cite{jayaraman2018distributed} & {R} & \eps & SS + GC & {\scriptsize$\mathcal{S}$} & \Xmarktab \\ 
+        
+        \noalign{\vskip -0.1em}
+        \arrayrulecolor[gray]{0.78}\cline{3-17}
+        \noalign{\vskip 0.08em}
+        
+        & & \multirow{2}{*}[-0.0ex]{\underline{Centralized}} & \pgrad & \doubledashtab & 
+        \doubledashtab & % SAMPLER
+        \Xmarktab  & \enhancemarktab & \Xmarktab  & \enhancemarktab & \tickmarkertab & 
+        \doubledashtab & \doubledashtab & \doubledashtab & \doubledashtab & \doubledashtab & \doubledashtab \\
+        
+        \noalign{\vskip -0.1em}
+        \arrayrulecolor[gray]{0.78}\cline{5-17} \arrayrulecolor{black}
+        \noalign{\vskip 0.08em}
+        
+        & & & \pout & Laplace & 
+        {\scriptsize$\mathcal{S}$} & % SAMPLER
+        \tickmarkertab & \tickmarkertab & \Xmarktab  & \enhancemarktab & \tickmarkertab & 
+        \cite{froelicher2020drynx} & {R} & \eps & (A)HE & {\scriptsize$\mathcal{C},\mathcal{S}$} & {\scriptsize\enx{m-1}} \\
+        
+        \noalign{\vskip -0.1em}
+        \cline{1-17}
+        \noalign{\vskip 0.08em}
+        
+        % OT SECTION -------------------------------------------
+        \multirow{6}{*}[-0.0ex]{{\textbf{\ol}}} & \multirow{3}{*}{{{\partnoise}}} & \multirow{3}{*}{{Local}} & \multirow{2}{*}{\pgrad} & Binomial & 
+        {\scriptsize$\mathcal{S}$} & % SAMPLER
+        \tickmarkertab & \tickmarkertab & \tickmarkertab & \tickmarkertab & \enhancemarktab & 
+        \cite{pea2023ruan} & {R} & RDP & SS & \Xmarktab  & {\scriptsize\enx{m/2}} \\ 
+        
+        \noalign{\vskip -0.1em}
+        \arrayrulecolor[gray]{0.78}\cline{5-17}
+        \noalign{\vskip 0.08em}
+        
+        & & & & Disc. Gauss. & 
+        {\scriptsize$\mathcal{S}$} & % SAMPLER
+        \tickmarkertab & \tickmarkertab & \tickmarkertab & \tickmarkertab & \enhancemarktab & 
+        \cite{das2025communication} & {R} & Mom. Acc. & SS & \Xmarktab  & {\scriptsize\enx{m-1}} \\ 
+        
+        \noalign{\vskip -0.1em}
+        \cline{4-17}
+        \noalign{\vskip 0.08em}
+        
+        & & & \pout & \doubledashtab & 
+        \doubledashtab & % SAMPLER
+        \tickmarkertab & \tickmarkertab & \tickmarkertab & \tickmarkertab & \enhancemarktab & 
+        \doubledashtab & \doubledashtab & \doubledashtab & \doubledashtab & \doubledashtab & \doubledashtab \\ 
+        
+        \noalign{\vskip -0.1em}
+        \arrayrulecolor{black}\hhline{~|*{16}{-}}
+        \noalign{\vskip 0.08em}
+        
+        & \multirow{3}{*}[-0.0ex]{{{\centrnoise}}} & \cellcolor{\mylighterblue} & {\pgrad} & \doubledashtab & 
+        \doubledashtab & % SAMPLER
+        \tickmarkertab & \tickmarkertab & \tickmarkertab & \tickmarkertab & \tickmarkertab & 
+        \doubledashtab & \doubledashtab & \doubledashtab & \doubledashtab & \doubledashtab & \doubledashtab \\ 
+        
+        \arrayrulecolor[gray]{0.76}\cline{5-17}
+        
+        & & \multirow{-2}{*}[-0.0ex]{\cellcolor{\mylighterblue}Distributed} & {\pout} & Dist. Lap. & 
+        {\scriptsize$\mathcal{S}$} & % SAMPLER
+        \tickmarkertab & \tickmarkertab & \tickmarkertab & \tickmarkertab & \tickmarkertab & 
+        \cite{pentyala2022training} & {R} & \enx{\eps} & SS & {\scriptsize$\mathcal{S}$} & {\scriptsize\enx{m-1}} \\ 
+        
+        \noalign{\vskip -0.1em}
+        \cline{3-17} \arrayrulecolor{black}
+        \noalign{\vskip 0.08em}
+        
+        & & {\underline{Centralized}} & \doubledashtab & \doubledashtab & 
+        \doubledashtab & % SAMPLER
+        \tickmarkertab & \tickmarkertab & \tickmarkertab & \tickmarkertab & \tickmarkertab & 
+        \doubledashtab & \doubledashtab & \doubledashtab & \doubledashtab & \doubledashtab & \doubledashtab \\
+        %\bottomrule
+    \end{tabular}
+    }
+\end{table*}
