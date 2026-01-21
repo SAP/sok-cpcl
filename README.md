@@ -12,6 +12,12 @@ Feel free to contribute to our summary table which categorizes and compares diff
 
 The LaTeX source code for the summary table is in the `summary_table/` folder.
 
+
+This project evaluates:
+- **Accuracy trade-offs**: Model accuracy with and without different privacy for Centralized learning, Federated Learning (FL) and  Outsourced Learning (OL)
+- **Performance overhead**: Communication and computation overhead due to DP for FL clients and servers and OL servers.
+- **Noise mechanisms**: Laplace, continuous and discrete Gaussian, and Skellam noise sampling with MPC library MP-SPDZ.
+
 ## Requirements and Setup
 
 *Insert a short description what is required to get your project running...*

@@ -11,4 +11,4 @@ This folder contains the LaTeX source code to generate the summary table present
 
 
 ## Contributing
-Contributions to enhance and update the summary table are welcome. Please open a pull request with your changes, ensuring that the LaTeX compiles correctly, and the table remains well-formatted.
+Contributions to enhance and update the summary table are welcome. Please ensure that the LaTeX compiles correctly, and the table remains well-formatted. Follow the contribution guidelines provided in `CONTRIBUTING.md`.
