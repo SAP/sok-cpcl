@@ -11,7 +11,6 @@ from pfl.metrics import Weighted
 def cross_entropy(logits: torch.Tensor, targets: torch.Tensor,
                   reduction: str) -> torch.Tensor:
     """ PyTorch cross entropy loss """
-    # TODO: support logits with more than 2 dimensions
     assert logits.ndim == 2, f"expect 2D tensor, get {logits.ndim}D"
     loss_fct = nn.CrossEntropyLoss(reduction=reduction)
     if targets.dim() > 1:
@@ -22,7 +21,6 @@ def cross_entropy(logits: torch.Tensor, targets: torch.Tensor,
 @torch.no_grad()
 def accuracy(logits: torch.Tensor, targets: torch.Tensor) -> torch.Tensor:
     """ PyTorch classification accuracy """
-    # TODO: support logits with more than 2 dimensions
     assert logits.ndim == 2, f"expect 2D tensor, get {logits.ndim}D"
     correct = logits.argmax(-1) == targets.squeeze().long()
     return correct.float().sum()

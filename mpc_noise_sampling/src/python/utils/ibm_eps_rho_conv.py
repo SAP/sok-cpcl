@@ -1,3 +1,15 @@
+"""
+Copyright (c) 2020 IBM
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+SPDX-License-Identifier: Apache-2.0
+"""
+
 #Code for computing approximate differential privacy guarantees
 # for discrete Gaussian and, more generally, concentrated DP
 # See https://arxiv.org/abs/2004.00010
