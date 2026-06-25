@@ -3,7 +3,7 @@
 # SoK: Enhancing Cryptographic Collaborative Learning with Differential Privacy
 
 ## About this project
-This repository contains the code for the experiments of the paper SoK: Enhancing Cryptographic Collaborative Learning with Differential Privacy accepted at [SaTML 2026](https://satml.org/) available on [arXiv](https://arxiv.org/pdf/2601.09460)
+This repository contains the code for the experiments of the paper SoK: Enhancing Cryptographic Collaborative Learning with Differential Privacy accepted at [SaTML 2026](https://satml.org/) available on [arXiv](https://arxiv.org/pdf/2601.09460).
 
 If you find this code useful in your research, please cite our paper:
 ```
